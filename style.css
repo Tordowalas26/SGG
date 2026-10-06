@@ -1,167 +1,291 @@
-/* Variables de entorno: ETC y Accesibilidad (Contraste Asegurado) */
+/* ==========================================================================
+   VARIABLES CSS - PALETAS DE COLOR (RF-02)
+   ========================================================================== */
 :root {
-    --bg-primary: #f8fafc;
-    --bg-card: #ffffff;
-    --text-main: #0f172a;
-    --text-muted: #475569;
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --border-color: #cbd5e1;
-    --error-color: #b91c1c;
-    --success-color: #15803d;
+  --bg-primary: #f4f6f9;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #cbd5e1;
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --error-color: #dc2626;
+  --success-color: #16a34a;
+  --disabled-color: #94a3b8;
+  --input-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.08);
 }
 
-body.dark-theme {
-    --bg-primary: #0f172a;
-    --bg-card: #1e293b;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --primary-color: #3b82f6;
-    --primary-hover: #60a5fa;
-    --border-color: #334155;
-    --error-color: #ef4444;
-    --success-color: #4ade80;
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --accent-color: #3b82f6;
+  --accent-hover: #60a5fa;
+  --error-color: #ef4444;
+  --success-color: #22c55e;
+  --disabled-color: #475569;
+  --input-bg: #0f172a;
+  --shadow-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Estilos Generales */
+/* ==========================================================================
+   ESTILOS GENERALES Y LAYOUT
+   ========================================================================== */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    transition: background-color 0.3s, color 0.3s;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-main);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
+/* Top Bar Switch Tema */
+.top-bar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+.theme-switch-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--border-color);
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Auth Card Container */
 .auth-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--bg-card);
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px var(--shadow-color);
+  border: 1px solid var(--border-color);
 }
 
-.auth-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 2rem;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.auth-header {
+  text-align: center;
+  margin-bottom: 24px;
 }
 
-h1, h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
+.auth-header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+  color: var(--text-primary);
 }
 
-.subtitle {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
+.auth-header p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
-/* Formularios */
+/* Form Groups & Inputs */
 .form-group {
-    margin-bottom: 1.25rem;
-    display: flex;
-    flex-direction: column;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
 }
 
-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-primary);
 }
 
-input {
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: transparent;
-    color: var(--text-main);
-    font-size: 1rem;
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-input:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 1px;
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
 }
 
-/* Botones */
+.form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Botón Ver/Ocultar Clave */
+.toggle-password-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* Dynamic Rules Feedback Box (UX Tiempo Real) */
+.password-requirements {
+  margin-top: 10px;
+  padding: 12px;
+  background-color: var(--bg-primary);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.password-requirements p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+}
+
+.password-requirements ul {
+  list-style: none;
+}
+
+.password-requirements li {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: var(--error-color);
+}
+
+.password-requirements li.valid {
+  color: var(--success-color);
+}
+
+.status-icon {
+  font-weight: bold;
+}
+
+/* Submit Button & Links */
 .btn-primary {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    width: 100%;
-    cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover);
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
+.btn-primary:disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
-.auth-links {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
+.auth-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
-.link-btn {
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    cursor: pointer;
-    font-size: 0.875rem;
-    text-decoration: underline;
+.auth-footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.link-btn:hover {
-    color: var(--primary-hover);
+.auth-footer a:hover {
+  text-decoration: underline;
 }
 
-/* Modificadores de Estado */
-.hidden {
-    display: none !important;
+/* Mensajes de Alerta */
+.alert {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  display: none;
 }
 
-.feedback-msg {
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    text-align: center;
-    font-weight: 500;
+.alert-danger {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
 }
 
-.error-text { color: var(--error-color); }
-.success-text { color: var(--success-color); }
+.alert-success {
+  background-color: rgba(22, 163, 74, 0.1);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+}
